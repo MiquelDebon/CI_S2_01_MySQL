@@ -23,13 +23,13 @@ DROP TABLE IF EXISTS `brand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `brand` (
-  `id_brand` int NOT NULL,
+  `id_brand` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL,
   `supplier_id` int DEFAULT NULL,
   PRIMARY KEY (`id_brand`),
   KEY `brand_ibfk_1` (`supplier_id`),
   CONSTRAINT `brand_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +48,7 @@ CREATE TABLE `client` (
   `register_date` date NOT NULL,
   `by_client_id` int DEFAULT NULL,
   PRIMARY KEY (`id_client`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,10 +59,10 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `employee` (
-  `id_employee` int NOT NULL,
+  `id_employee` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_employee`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,9 +81,10 @@ CREATE TABLE `product` (
   `glass_color` varchar(45) DEFAULT NULL,
   `price` int DEFAULT NULL,
   PRIMARY KEY (`id_product`),
-  KEY `brand` (`brand_id`),
+  UNIQUE KEY `id_product_UNIQUE` (`id_product`),
+  KEY `brand_idx` (`brand_id`),
   CONSTRAINT `brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id_brand`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,14 +99,15 @@ CREATE TABLE `sale` (
   `client_id` int NOT NULL,
   `product_id` int NOT NULL,
   `employee_id` int NOT NULL,
+  `date` date NOT NULL,
   PRIMARY KEY (`id_sale`),
   KEY `client_idx` (`client_id`),
   KEY `product_idx` (`product_id`),
-  KEY `employee_idx` (`employee_id`),
+  KEY `employ_idx` (`employee_id`),
   CONSTRAINT `client` FOREIGN KEY (`client_id`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `employee` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id_employee`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `employ` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id_employee`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,13 +119,13 @@ DROP TABLE IF EXISTS `supplier`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `supplier` (
   `id_supplier` int NOT NULL AUTO_INCREMENT,
-  `name` int DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
   `direction` varchar(25) DEFAULT NULL,
   `phone` varchar(12) DEFAULT NULL,
   `fax` varchar(20) DEFAULT NULL,
   `NIF` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_supplier`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -135,4 +137,4 @@ CREATE TABLE `supplier` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-26 14:00:29
+-- Dump completed on 2023-04-26 17:34:09
