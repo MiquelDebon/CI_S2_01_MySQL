@@ -1,6 +1,8 @@
 -- Optica queries 
 -- Autor: Miquel Debon Villagrasa
 
+use c1_s1_n1_ex1_optica;
+
 -- Llista el total de factures d'un client/a en un període determinat.
 select c.name as NombreCliente, p.id_product, b.name as Marca , p.price as Precio, s.date
 from client  c
@@ -24,6 +26,18 @@ inner join brand on sup.id_supplier = brand.supplier_id
 inner join product on brand.id_brand = product.brand_id
 inner join sale on product.id_product = sale.product_id
 order by ID;
+
+select distinct sup.id_supplier as ID, sup.name as Nombre, sup.direction as Region
+from supplier sup 
+where sup.id_supplier IN(
+		select brand.supplier_id from brand where brand.id_brand in (
+			select product.brand_id from product where product.id_product in(
+				select sale.product_id from sale
+            )
+        )
+)
+order by ID;
+
 
 
 
