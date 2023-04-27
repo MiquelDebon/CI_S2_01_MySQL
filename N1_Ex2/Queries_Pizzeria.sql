@@ -3,9 +3,20 @@
 -- BY Miquel Debon Villagrasa
 
 -- Llista quants productes de categoria 'Begudes' s'han venut en una determinada localitat.
-SELECT * FROM product_order
-LEFT JOIN product on product_order.product_id = product.id_product
-LEFT JOIN orders on product_order.order_id = orders.id_order
-LEFT JOIN client on orders.client_id = client.id_client
-LEFT JOIN location on client.location_id = location.id_location
-WHERE product.category = 'Drink' and location.name = "Barelona";
+SELECT location.name,product.category, COUNT(orders.id_order) FROM product
+INNER JOIN product_order on product_order.product_id = product.id_product
+INNER JOIN orders on product_order.order_id = orders.id_order
+INNER JOIN client on orders.client_id = client.id_client
+INNER JOIN location on client.location_id = location.id_location
+WHERE product.category = 'Drink' and location.name = "Barcelona";
+
+-- SELECT orders.id_order, location.name, product.name, product.category
+
+-- Llista quantes comandes ha efectuat un determinat empleat/da.
+SELECT orders.id_order , employee.id_employee, employee.name as Name FROM employee
+INNER JOIN orders on employee.id_employee = orders.employee_id
+WHERE employee.name LIKE "%Fernando%"
+ORDER BY orders.id_order;
+
+
+

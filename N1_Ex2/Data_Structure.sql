@@ -37,9 +37,10 @@ CREATE TABLE pizzeria_shop(
 	id_pizzeria int(8) NOT NULL AUTO_INCREMENT,
     direction varchar(50), 
     cp int(8) ZEROFILL,
-    location varchar(30),
+    location_id int(8),
     province varchar(30),
-    PRIMARY KEY (id_pizzeria)
+    PRIMARY KEY (id_pizzeria),
+    FOREIGN KEY (location_id) REFERENCES location (id_location)
 );
 
 CREATE TABLE employee(
@@ -82,6 +83,7 @@ CREATE TABLE pizza_category(
 CREATE TABLE product(
 	id_product int(4) NOT NULL AUTO_INCREMENT,
 	name varchar(25) NOT NULL,
+    category ENUM('Pizza', 'Hamburguer', 'Drink'),
     pizza_category_id int(4),
     description varchar(200),
     image varchar(200),
