@@ -1,1 +1,1 @@
-<h1>Pizzeria Database </h1>
+<h2>Pizzeria Database </h2>
