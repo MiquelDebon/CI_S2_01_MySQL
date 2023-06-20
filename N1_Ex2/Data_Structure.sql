@@ -38,7 +38,6 @@ CREATE TABLE pizzeria_shop(
     direction varchar(50), 
     cp int(8) ZEROFILL,
     location_id int(8),
-    province varchar(30),
     PRIMARY KEY (id_pizzeria),
     FOREIGN KEY (location_id) REFERENCES location (id_location)
 );
