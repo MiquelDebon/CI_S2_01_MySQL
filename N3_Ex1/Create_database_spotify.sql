@@ -52,7 +52,7 @@ CREATE TABLE payment(
 
 CREATE TABLE subscription(
     id_subscription int(10) AUTO_INCREMENT,
-    subscription_date DATE DEFAULT(NOW()),
+    subscription_date DATE DEFAULT NOW(),
     subscription_renewal DATE,
     payment_id int(8) NOT NULL,
     user_id int(8) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE playlist(
     id_playlist int(8) AUTO_INCREMENT,
     title varchar(30) NOT NULL,
     amount_songs int(5), 
-    date DATE DEFAULT(NOW()),
+    date DATE DEFAULT NOW(),
     user_id int(8),
     state ENUM ('active', 'deleted') DEFAULT 'active',
     deleted_date DATE,
